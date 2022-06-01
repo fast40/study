@@ -26,8 +26,6 @@ def get_secret():
     # See https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html
     # We rethrow the exception by default.
 
-    return 'test'
-
     try:
         get_secret_value_response = client.get_secret_value(SecretId=secret_name)
         print('\n\n-----')
