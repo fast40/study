@@ -63,7 +63,7 @@ def get_secret():
     # Your code goes here. 
     # return secret
 
-openai.api_key = get_secret()['openai_api_key']
+# openai.api_key = get_secret()['openai_api_key']
 
 application = Flask(__name__)
 application.secret_key = 'key'
@@ -71,21 +71,23 @@ application.secret_key = 'key'
 
 @application.route('/', methods=['POST', 'GET'])
 def index():
-    if request.method == 'POST':
-        response = openai.Completion.create(
-            engine='text-davinci-002',
-            prompt=f'Write a multi paragraph essay explaining why the following business name is either effective or ineffective:\n{request.form["user-input"]}. Then give it a score out of 100.',
-            temperature=0.7,
-            max_tokens=2048,
-            top_p=1,
-            frequency_penalty=0,
-            presence_penalty=0
-        )
+    s = get_secret()
+    return type(s) + '---' + str(s)
+    # if request.method == 'POST':
+    #     response = openai.Completion.create(
+    #         engine='text-davinci-002',
+    #         prompt=f'Write a multi paragraph essay explaining why the following business name is either effective or ineffective:\n{request.form["user-input"]}. Then give it a score out of 100.',
+    #         temperature=0.7,
+    #         max_tokens=2048,
+    #         top_p=1,
+    #         frequency_penalty=0,
+    #         presence_penalty=0
+    #     )
 
-        return render_template('survey.html', data={'feedback': response.choices[0].text, 'user_input': request.form['user-input']})
-        # return render_template('survey.html', feedback='hello')
+    #     return render_template('survey.html', data={'feedback': response.choices[0].text, 'user_input': request.form['user-input']})
+    #     # return render_template('survey.html', feedback='hello')
 
-    return render_template('survey.html')
+    # return render_template('survey.html')
 
 
 @application.route('/end-of-survey')
