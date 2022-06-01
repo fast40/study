@@ -32,6 +32,8 @@ def get_secret():
         print('get_secret_value_response')
         print(get_secret_value_response)
         print('\n\n-----')
+
+        return get_secret_value_response
     except ClientError as e:
         if e.response['Error']['Code'] == 'DecryptionFailureException':
             return 'DecryptionFailureException'
