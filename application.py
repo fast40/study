@@ -12,6 +12,7 @@ from botocore.exceptions import ClientError
 
 def get_secret():
     secret_name = "arn:aws:secretsmanager:us-west-1:366275936625:secret:prod/study/openai_api_key-bz1DkG"
+    secret_name = "arn:aws:iam::366275936625:role/aws-elasticbeanstalk-service-role"
     region_name = "us-west-1"
 
     # Create a Secrets Manager client
@@ -27,6 +28,10 @@ def get_secret():
 
     try:
         get_secret_value_response = client.get_secret_value(SecretId=secret_name)
+        print('\n\n-----')
+        print('get_secret_value_response')
+        print(get_secret_value_response)
+        print('\n\n-----')
     except ClientError as e:
         if e.response['Error']['Code'] == 'DecryptionFailureException':
             # Secrets Manager can't decrypt the protected secret text using the provided KMS key.
