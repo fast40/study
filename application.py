@@ -72,7 +72,7 @@ application.secret_key = 'key'
 @application.route('/', methods=['POST', 'GET'])
 def index():
     s = get_secret()
-    return type(s) + '---' + str(s)
+    return str(type(s)) + '---' + str(s)
     # if request.method == 'POST':
     #     response = openai.Completion.create(
     #         engine='text-davinci-002',
