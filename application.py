@@ -12,7 +12,7 @@ from botocore.exceptions import ClientError
 
 def get_secret():
     secret_name = "arn:aws:secretsmanager:us-west-1:366275936625:secret:prod/study/openai_api_key-bz1DkG"
-    secret_name = "arn:aws:iam::366275936625:role/aws-elasticbeanstalk-service-role"
+    # secret_name = "arn:aws:iam::366275936625:role/aws-elasticbeanstalk-service-role"
     region_name = "us-west-1"
 
     # Create a Secrets Manager client
@@ -25,6 +25,8 @@ def get_secret():
     # In this sample we only handle the specific exceptions for the 'GetSecretValue' API.
     # See https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html
     # We rethrow the exception by default.
+
+    return 'test'
 
     try:
         get_secret_value_response = client.get_secret_value(SecretId=secret_name)
