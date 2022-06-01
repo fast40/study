@@ -20,10 +20,10 @@ def index():
             presence_penalty=0
         )
 
-        return render_template('test.html', data={'feedback': response.choices[0].text, 'user_input': request.form['user-input']})
+        return render_template('survey.html', data={'feedback': response.choices[0].text, 'user_input': request.form['user-input']})
         # return render_template('survey.html', feedback='hello')
 
-    return render_template('test.html')
+    return render_template('survey.html')
 
 
 @application.route('/end-of-survey')
