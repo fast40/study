@@ -11,7 +11,7 @@ from botocore.exceptions import ClientError
 
 
 def get_secret():
-    secret_name = "prod/study/openai_api_key"
+    secret_name = "arn:aws:secretsmanager:us-west-1:366275936625:secret:prod/study/openai_api_key-bz1DkG"
     region_name = "us-west-1"
 
     # Create a Secrets Manager client
