@@ -78,18 +78,27 @@
         .large {
             font-size: 2.5rem;
         }
+
+        .delayed {
+            display: none;
+        }
     </style>
     <base target="_parent">
 </head>
 <body>
     <div>
         <h1 class="large">Super Survey</h1>
-
         {% if data %}
-            <h1>Your feedback for "{{ data['user_input'] }}"</h1>
-            <p>{{ data['feedback'] }}</p>
-            <h1>Survey</h1>
-            <iframe src="https://usc.qualtrics.com/jfe/form/SV_7TXvh1XnE8e5c34" frameborder="0" sandbox="allow-forms allow-modals allow-popups allow-same-origin allow-scripts allow-top-navigation"></iframe>
+            <script>
+                for(var element of document.getElementsByClassName("delayed")) {
+                    
+                }
+            </script>
+
+            <h1 class="delayed">Your feedback for "{{ data['user_input'] }}"</h1>
+            <p class="delayed">{{ data['feedback'] }}</p>
+            <h1 class="delayed">Survey</h1>
+            <iframe class="delayed" src="https://usc.qualtrics.com/jfe/form/SV_7TXvh1XnE8e5c34" frameborder="0" sandbox="allow-forms allow-modals allow-popups allow-same-origin allow-scripts allow-top-navigation"></iframe>
         {% else %}
             <h1>Enter a business name below</h1>
             <form action="/" method="post">

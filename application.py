@@ -70,8 +70,38 @@ application = Flask(__name__)
 application.secret_key = 'key'
 
 
-@application.route('/', methods=['POST', 'GET'])
+@application.route('/')
 def index():
+    return render_template('final.html')
+
+
+@application.route('/api', methods=['POST'])
+def api():
+    version = request.form["version"]
+    user_input = request.form["input"]
+
+    if version == '0':
+        prompt = f'Evaluate the following coffee shop name: "{user_input}". Describe the name\'s strengths and weaknesses, but do not provide other name options.'
+    elif version == '1':
+        prompt = f'Evaluate the following coffee shop name: "{user_input}". Describe the name\'s strengths and weaknesses, and assign it a rating from 0 to 50, with 50 being the best.'
+    else:
+        return "If you are seeing this text there was an issue displaying the feedback"
+
+    response = openai.Completion.create(
+        engine='text-davinci-002',
+        prompt=prompt,
+        temperature=0.7,
+        max_tokens=2048,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
+
+    return response.choices[0].text
+
+
+@application.route('/legacy', methods=['POST', 'GET'])
+def legacy():
     # s = get_secret()
     # return s.openai_api_key
     if request.method == 'POST':

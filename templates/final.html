@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        html {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            background: rgb(240, 240, 240);
+        }
+
+        body {
+            display: table;
+            min-height: 100%;
+            width: 45rem;
+            box-shadow: 0px 0px 1.5625rem -1.4375rem black;
+            padding: 3rem 4.5rem;
+            margin: 0px;
+            background: rgb(255, 255, 255);
+        }
+
+        form, .spinner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        form {
+            width: 100%;
+            gap: 0.625rem;
+            margin-top: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        .large {
+            font-size: 2.5rem;
+        }
+
+        input {
+            width: 100%;
+            height: 2.5rem;
+            font-size: 1rem;  /* 0.8333 */
+            border: 0.0625rem solid #525252;
+            border-radius: 0.1875rem;
+        }
+
+        input[type=submit], a {
+            cursor: pointer;
+            background-color: #007ac0;
+            color: #ffffff;
+            border: none;
+        }
+
+        .spinner {
+            width: 100%;
+            display: none;
+        }
+
+        .spinner-element {
+        border: 0.4rem solid rgb(220, 220, 220);
+        border-top: 0.4rem solid rgb(0, 122, 192);
+        border-radius: 50%;
+        width: 4rem;
+        height: 4rem;
+        -webkit-animation: spin 1s linear infinite;
+        animation: spin 1s linear infinite;
+        }
+
+        @-webkit-keyframes spin {
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
+        }
+
+        @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+        }
+
+        .initially-hidden {
+            display: none;
+        }
+
+        p {
+            width: 100%;
+        }
+
+        .centered {
+            text-align: center;
+            width: 100%;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        .italic {
+            font-style: italic;
+        }
+
+        a {
+            display: block;
+            width: 100%;
+            height: 2.5rem;
+            line-height: 2.5rem;
+            font-size: 1rem;  /* 0.8333 */
+            border-radius: 0.1875rem;
+            text-align: center;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <p class="centered bold">Instructions</p>
+    <p>For this exercise, you will be brainstorming small business names and slogans for a coffee shop that will be opening up in Los Angeles, California in Autumn 2023.</p>
+    <p>This coffee shop will serve standard espresso fare in a relaxing, comfortable setting. The furniture will be high end, and the shop will have numerous artworks and books for sale in addition to coffee drinks and teas. Jazz and lounge music will be playing when the coffee shop is open.</p>
+    <p>Below, please come up with a name for this coffee shop that accurately reflects the culture and "feel" of the above business plan. I will evaluate your name, and then provide you with feedback.</p>
+    <form>
+        <input type="text">
+        <input type="submit">
+    </form>
+    <div class="spinner">
+        <p class="centered">Please wait a moment...</p>
+        <div class="spinner-element"></div>
+    </div>
+    <div class="initially-hidden">
+        <p class="centered bold">Feedback</p>
+        <p class="feedback"></p>
+        <p>Now that I have provided you with some preliminary feedback I want to give you another opportunity to generate a name for this small business. Please improve the name as much as possible and type it below. I will assign this new name a rating form 0 to 50, with 50 being the best; the highest-scoring 20% of names will receive a $1.00 bonus.</p>
+        <p>Please type the new name below.</p>
+        <form>
+            <input type="text">
+            <input type="submit">
+        </form>
+    </div>
+    <div class="spinner">
+        <p class="centered">Please wait a moment...</p>
+        <div class="spinner-element"></div>
+    </div>
+    <div class="initially-hidden">
+        <p class="centered bold">Feedback</p>
+        <p class="feedback"></p>
+        <p class="italic">Thank you for participating in this work task. Click the button below to continue to the end of the survey.</p>
+        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Continue &#8594;</a>
+    </div>
+</body>
+<script>
+    var form1 = document.getElementsByTagName("form")[0];
+    var form2 = document.getElementsByTagName("form")[1];
+
+    var nodes = Array.prototype.slice.call(document.getElementsByTagName("form"));
+
+    function updateWithResponse(response, feedbackSectionIndex) {
+        var section = document.getElementsByClassName("initially-hidden")[feedbackSectionIndex];
+        var spinner = document.getElementsByClassName("spinner")[feedbackSectionIndex];
+        var feedback = section.querySelectorAll(".feedback")[0];
+
+        feedback.textContent = response;
+
+        spinner.style.display = "none";
+
+        if(feedbackSectionIndex == 0) {
+            section.children[2].style.display = "none";
+            section.children[3].style.display = "none";
+            section.children[4].style.display = "none";
+
+            setTimeout(function() {
+                section.children[2].style.display = "block";
+                section.children[3].style.display = "block";
+            }, 5000);
+
+            setTimeout(function() {
+                section.children[4].style.display = "flex";
+            }, 7000);
+        }
+
+        section.style.display = "block";
+    }
+
+    function beginSpinner(feedbackSectionIndex) {
+        var spinner = document.getElementsByClassName("spinner")[feedbackSectionIndex];
+
+        spinner.style.display = "flex";
+    }
+
+    function disableForm(feedbackSectionIndex) {
+        var form = document.getElementsByTagName("form")[feedbackSectionIndex];
+
+        form.removeChild(form.children[1]);
+        form.firstElementChild.setAttribute("readonly", "true");
+    }
+
+    function handleSubmitEvent() {
+        index = nodes.indexOf(this);
+        disableForm(index);
+        beginSpinner(index);
+
+        var startTime = Date.now();
+
+        var data = new FormData();
+        data.append("input", this.firstElementChild.value);
+        data.append("version", index);
+
+        console.log(index);
+
+        var request = new XMLHttpRequest();
+        request.open('POST', 'http://study-env.eba-sppjibz6.us-west-1.elasticbeanstalk.com/api');
+        request.send(data);
+        request.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                setTimeout(() => {
+                    updateWithResponse(this.responseText, index);
+                }, startTime + 20000 - Date.now());
+            }
+        };
+
+        return false;
+    }
+
+    form1.onsubmit = handleSubmitEvent;
+    form2.onsubmit = handleSubmitEvent;
+</script>
+</html>
