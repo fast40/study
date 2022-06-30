@@ -228,7 +228,7 @@
             if (this.readyState == 4 && this.status == 200) {
                 setTimeout(() => {
                     updateWithResponse(this.responseText, index);
-                }, startTime + 3000 - Date.now());
+                }, startTime + 20000 - Date.now());
             }
         };
 
