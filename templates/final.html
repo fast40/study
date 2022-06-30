@@ -152,7 +152,7 @@
         <p class="centered bold">Feedback</p>
         <p class="feedback"></p>
         <p class="italic">Thank you for participating in this work task. Click the button below to continue to the end of the survey.</p>
-        <a href="getRedirectLink('https://www.qualtrics.com')">Continue &#8594;</a>
+        <a id="redirect-link" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Continue &#8594;</a>
     </div>
 </body>
 <script>
@@ -161,6 +161,8 @@
 
         return baseURL + "?id=" + urlParams.get("id");
     }
+
+    document.getElementById("redirect-link").href = getRedirectLink('https://www.qualtrics.com')
 </script>
 <script>
     var form1 = document.getElementsByTagName("form")[0];
@@ -185,11 +187,11 @@
             setTimeout(function() {
                 section.children[2].style.display = "block";
                 section.children[3].style.display = "block";
-            }, 5000);
+            }, 0);
 
             setTimeout(function() {
                 section.children[4].style.display = "flex";
-            }, 7000);
+            }, 0);
         }
 
         section.style.display = "block";
