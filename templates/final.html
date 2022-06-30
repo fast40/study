@@ -159,7 +159,7 @@
     function getRedirectLink(baseURL) {
         var urlParams = new URLSearchParams(window.location.search);
 
-        return baseURL + "?id=" + urlParams.get("id");
+        return baseURL + "?id=" + urlParams.get("id") + "&c=" + urlParams.get("c");
     }
 
     document.getElementById("redirect-link").href = getRedirectLink('https://uwt.az1.qualtrics.com/jfe/form/SV_bBBb8oiM0GLGB94')
