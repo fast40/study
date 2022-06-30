@@ -152,9 +152,16 @@
         <p class="centered bold">Feedback</p>
         <p class="feedback"></p>
         <p class="italic">Thank you for participating in this work task. Click the button below to continue to the end of the survey.</p>
-        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Continue &#8594;</a>
+        <a href="getRedirectLink('https://www.qualtrics.com')">Continue &#8594;</a>
     </div>
 </body>
+<script>
+    function getRedirectLink(baseURL) {
+        var urlParams = new URLSearchParams(window.location.search);
+
+        return baseURL + "?id=" + urlParams.get("id");
+    }
+</script>
 <script>
     var form1 = document.getElementsByTagName("form")[0];
     var form2 = document.getElementsByTagName("form")[1];
