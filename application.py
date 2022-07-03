@@ -1,3 +1,4 @@
+from unittest import TestCase
 from flask import Flask, render_template, request
 import openai
 import ast
@@ -125,6 +126,15 @@ def legacy():
 def end_of_survey():
     return render_template('end_of_survey.html')
 
+
+@application.route('/csv', methods=['POST', 'GET'])
+def csv():
+    s3 = boto3.resource('s3')
+
+    obj = s3.Object('userresponses', 'responses.csv')
+    obj.put(Body=b'test')
+
+    return 'done'
 
 if __name__ == "__main__":
     application.run()
