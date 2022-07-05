@@ -133,10 +133,9 @@ def csv():
 
     obj = s3.Object('userresponses', 'responses.csv')
 
-    # file_content = obj.get()['Body'].read() + 'test'
+    file_content = obj.get()['Body'].read().decode() + 'test'
 
-    # obj.put(Body=file_content.encode())
-    # obj.put(Body='2cool4u')
+    obj.put(Body=file_content.encode())
 
     return obj.get()['Body'].read().decode()
 
