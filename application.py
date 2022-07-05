@@ -133,11 +133,12 @@ def csv():
 
     obj = s3.Object('userresponses', 'responses.csv')
 
-    file_content = obj.get()['Body'].read() + 'test'
+    # file_content = obj.get()['Body'].read() + 'test'
 
-    obj.put(Body=file_content.encode())
+    # obj.put(Body=file_content.encode())
+    obj.put(Body='2cool4u')
 
-    return obj.get()['Body'].read()
+    return 'done'  # obj.get()['Body'].read()
 
 if __name__ == "__main__":
     application.run()
