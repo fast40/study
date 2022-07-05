@@ -127,7 +127,7 @@
     <p>This coffee shop will serve standard espresso fare in a relaxing, comfortable setting. The furniture will be high end, and the shop will have numerous artworks and books for sale in addition to coffee drinks and teas. Jazz and lounge music will be playing when the coffee shop is open.</p>
     <p>Below, please come up with a name for this coffee shop that accurately reflects the culture and "feel" of the above business plan. I will evaluate your name, and then provide you with feedback.</p>
     <form>
-        <input type="text" required>
+        <input id="name1" type="text" required>
         <input type="submit">
     </form>
     <div class="spinner">
@@ -136,11 +136,11 @@
     </div>
     <div class="initially-hidden">
         <p class="centered bold">Feedback</p>
-        <p class="feedback"></p>
+        <p id="feedback1" class="feedback"></p>
         <p>Now that I have provided you with some preliminary feedback I want to give you another opportunity to generate a name for this small business. Please improve the name as much as possible and type it below. I will assign this new name a rating form 0 to 50, with 50 being the best; the highest-scoring 20% of names will receive a $1.00 bonus.</p>
         <p>Please type the new name below.</p>
         <form>
-            <input type="text" required>
+            <input id="name2" type="text" required>
             <input type="submit">
         </form>
     </div>
@@ -150,7 +150,7 @@
     </div>
     <div class="initially-hidden">
         <p class="centered bold">Feedback</p>
-        <p class="feedback"></p>
+        <p id="feedback2" class="feedback"></p>
         <p class="italic">Thank you for participating in this work task. Click the button below to continue to the end of the survey.</p>
         <a id="redirect-link" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Continue &#8594;</a>
     </div>
@@ -230,6 +230,10 @@
             if (this.readyState == 4 && this.status == 200) {
                 setTimeout(() => {
                     updateWithResponse(this.responseText, index);
+
+                    if(index == 1) {
+                        sendCSVData();
+                    }
                 }, startTime + 20000 - Date.now());
             }
         };
@@ -239,5 +243,28 @@
 
     form1.onsubmit = handleSubmitEvent;
     form2.onsubmit = handleSubmitEvent;
+
+    function sendCSVData() {
+        var urlParams = new URLSearchParams(window.location.search);
+        var data = new FormData();
+
+        var id = urlParams.get("id");
+        var condition = urlParams.get("c") == "0" ? "algorithm" : "person";
+        var name1 = document.getElementById("name1").value;
+        var feedback1 = document.getElementById("feedback1").textContent;
+        var name2 = document.getElementById("name2").value;
+        var feedback2 = document.getElementById("feedback2").textContent;
+
+        data.append("id", id);
+        data.append("condition", condition);
+        data.append("name1", name1);
+        data.append("feedback1", feedback1);
+        data.append("name2", name2);
+        data.append("feedback2", feedback2);
+
+        var request = new XMLHttpRequest();
+        request.open('POST', 'http://study-env.eba-sppjibz6.us-west-1.elasticbeanstalk.com/csv');
+        request.send(data);
+    }
 </script>
 </html>

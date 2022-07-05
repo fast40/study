@@ -127,17 +127,34 @@ def end_of_survey():
     return render_template('end_of_survey.html')
 
 
-@application.route('/csv', methods=['POST', 'GET'])
+@application.route('/csv', methods=['POST'])
 def csv():
     s3 = boto3.resource('s3')
 
     obj = s3.Object('userresponses', 'responses.csv')
 
-    file_content = 'id,condition,name1,feedback1,name2,feedback2\n'  # obj.get()['Body'].read().decode() + 'test\n'
+    file_content = obj.get()['Body'].read().decode() + \
+        request.form['id'] + ',' + \
+        request.form['condition'] + ',' + \
+        request.form['name1'] + ',' + \
+        request.form['feedback1'] + ',' + \
+        request.form['name2'] + ',' + \
+        request.form['feedback2'] + '\n'
 
     obj.put(Body=file_content.encode())
 
     return obj.get()['Body'].read().decode()
+
+
+@application.route('/reset-csv', methods=['GET'])
+def csv():
+    s3 = boto3.resource('s3')
+
+    obj = s3.Object('userresponses', 'responses.csv')
+    obj.put(Body=b'id,condition,name1,feedback1,name2,feedback2\n')
+
+    return obj.get()['Body'].read().decode()
+
 
 if __name__ == "__main__":
     application.run()
