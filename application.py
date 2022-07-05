@@ -132,9 +132,12 @@ def csv():
     s3 = boto3.resource('s3')
 
     obj = s3.Object('userresponses', 'responses.csv')
-    obj.put(Body=b'test')
 
-    return 'done'
+    file_content = obj.get()['Body'].read() + 'test'
+
+    obj.put(Body=file_content.encode())
+
+    return obj.get()['Body'].read()
 
 if __name__ == "__main__":
     application.run()
