@@ -136,9 +136,9 @@ def csv():
     # file_content = obj.get()['Body'].read() + 'test'
 
     # obj.put(Body=file_content.encode())
-    obj.put(Body='2cool4u')
+    # obj.put(Body='2cool4u')
 
-    return 'done'  # obj.get()['Body'].read()
+    return obj.get()['Body'].read().decode()
 
 if __name__ == "__main__":
     application.run()
