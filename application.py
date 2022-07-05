@@ -134,12 +134,12 @@ def csv():
     obj = s3.Object('userresponses', 'responses.csv')
 
     file_content = obj.get()['Body'].read().decode() + \
-        request.form['id'] + ',' + \
-        request.form['condition'] + ',' + \
-        request.form['name1'] + ',' + \
-        request.form['feedback1'] + ',' + \
-        request.form['name2'] + ',' + \
-        request.form['feedback2'] + '\n'
+        '"' + request.form['id'] + '",' + \
+        '"' + request.form['condition'] + '",' + \
+        '"' + request.form['name1'] + '",' + \
+        '"' + request.form['feedback1'] + '",' + \
+        '"' + request.form['name2'] + '",' + \
+        '"' + request.form['feedback2'] + '"\n'
 
     obj.put(Body=file_content.encode())
 
