@@ -147,7 +147,7 @@ def csv():
 
 
 @application.route('/reset-csv', methods=['GET'])
-def csv():
+def reset_csv():
     s3 = boto3.resource('s3')
 
     obj = s3.Object('userresponses', 'responses.csv')
